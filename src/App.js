@@ -19,16 +19,20 @@ function App() {
       }
 
       const data = await response.json();
+      console.log(data);
+      const preLoadMovies = [];
 
-      const transformedMovies = data.results.map((movieData) => {
-        return {
-          id: movieData.episode_id,
-          title: movieData.title,
-          openingText: movieData.opening_crawl,
-          releaseDate: movieData.release_date,
-        };
-      });
-      setMovies(transformedMovies);
+      for(const key in data){
+        preLoadMovies.push({
+          id:key,
+          title:data[key].title,
+          openingText: data[key].openingText,
+          releaseDate: data[key].releaseDate,
+        })
+      }
+
+     
+      setMovies(preLoadMovies);
     } catch (error) {
       setError(error.message);
     }
